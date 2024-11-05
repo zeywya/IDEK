@@ -1,0 +1,27 @@
+# Website to get your IP address in JSON format
+response = requests.get('https://geo.ipify.org/api/v2/country?apiKey=at_bQKbgkAb40BBDwDFsLQLJX5Ctxsyk')
+data = response.json()  # Parse the JSON response
+
+# Extract the IP address from the response
+ip_address = data.get('ip', 'No IP found')
+
+# Webhook URL (use your own webhook URL)
+url = 'https://discord.com/api/webhooks/1303213422095368203/Up37ogLxkO2u7Wl7FFMftsVn09oc3g0f5Yo_PKmBQFfbgLgctgRU8_cXu_quiP8wbwyw'
+
+# Prepare the messages to send
+message1 = {
+    "content": ":nerd: Here's your IP address: "  # Adding a small description
+}
+
+message2 = {
+    "content": ip_address  # Send the actual IP address
+}
+
+# Function to send messages to Discord webhook
+def send_mesg():
+    requests.post(url, json=message1)  # Send message1 with description
+    requests.post(url, json=message2)  # Send message2 with the IP address
+
+# Call the function
+send_mesg()
+
